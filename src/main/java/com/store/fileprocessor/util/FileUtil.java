@@ -10,8 +10,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
@@ -20,8 +18,6 @@ import lombok.NoArgsConstructor;
 @Service
 @NoArgsConstructor
 public class FileUtil {
-
-	private static final Pattern pattern = Pattern.compile("[*.csv][*.txt]");
 
 	/**
 	 * Method that will know the input paths of files in the system
@@ -48,8 +44,8 @@ public class FileUtil {
 	}
 
 	/**
-	 * Method that will fetch the files from a directory. 
-	 * Configured as regex: *.txt and * .csv
+	 * Method that will fetch the files from a directory. Configured as regex: *.txt
+	 * and * .csv
 	 * 
 	 * @param dir - full directory path
 	 * @return list of files
@@ -60,8 +56,8 @@ public class FileUtil {
 		Files.walkFileTree(Paths.get(dir), new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-				Matcher matcher = pattern.matcher(file.getFileName().toString());
-				if (file.toFile().exists() && matcher.find()) {
+				if (file.toFile().exists() && (file.getFileName().toString().endsWith(".csv")
+						|| file.getFileName().toString().endsWith(".txt"))) {
 					fileList.add(file.getFileName().toString());
 				}
 				return FileVisitResult.CONTINUE;
