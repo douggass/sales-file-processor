@@ -20,6 +20,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FileOutDataBusiness {
 	
+	/**
+	 * Method to build data according to business rules
+	 * @param itens	-	item list from an input file
+	 * @return	formatted data
+	 */
 	public FileOutData buildFileOutData(final List<? extends FileData> itens) {
 		final Long amountCustomers = itens.stream().filter(item -> Objects.nonNull(item.getCustomer())).count();
 		final Long amountSellers = itens.stream().filter(item -> Objects.nonNull(item.getSalesman())).count();

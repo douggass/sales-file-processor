@@ -22,6 +22,12 @@ public class SaleFieldSetMapper implements FieldSetMapper<FileData> {
 	private static final String EMPTY = "";
 	private static final String DATA_WITHOUT_MINIMUN_INFORMATION = "Data without minimum information";
 
+	/**
+	 * Method that will map a sale to a generic object
+	 * @param fieldSet	-	field set as configured in batch
+	 * @return a generic object with sale
+	 * @see {@link FileData}}
+	 */
 	@Override
 	public FileData mapFieldSet(FieldSet fieldSet) throws BindException {
 		return FileData.builder().sale(
@@ -33,6 +39,11 @@ public class SaleFieldSetMapper implements FieldSetMapper<FileData> {
 				.build();
 	}
 	
+	/**
+	 * Method that will turn a string with all items sold into a list of sales details
+	 * @param saleDetail - string of the complete sale that will be transformed
+	 * @return sale details list
+	 */
 	private List<SaleDetail> buildListSaleDetail(final String saleDetail) {
 		return Optional.ofNullable(saleDetail)
 			.map(str -> str.replace("[", EMPTY).replace("]", EMPTY))
@@ -42,7 +53,12 @@ public class SaleFieldSetMapper implements FieldSetMapper<FileData> {
 					.collect(Collectors.toList()))
 			.orElse(Collections.emptyList());
 	}
-	
+
+	/**
+	 * Method that will transform a sale string into a sale detail object
+	 * @param saleDetail - string of a single sale
+	 * @return object detail sale {@link SaleDetail}
+	 */
 	private SaleDetail buildSaleDetail(final String saleDetail) {
 		return Optional.ofNullable(saleDetail)
 			.map(str -> saleDetail.split("-"))

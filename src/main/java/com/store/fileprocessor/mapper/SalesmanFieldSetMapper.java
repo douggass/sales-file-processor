@@ -13,14 +13,18 @@ import com.store.fileprocessor.dto.Salesman;
 @Component
 public class SalesmanFieldSetMapper implements FieldSetMapper<FileData> {
 
+	/**
+	 * Method that will map a salesman to a generic object
+	 * @param fieldSet	-	field set as configured in batch
+	 * @return a generic object with salesman
+	 * @see {@link FileData}}
+	 */
 	@Override
 	public FileData mapFieldSet(FieldSet fieldSet) throws BindException {
 		return FileData.builder()
-				.salesman(Salesman.builder().type(fieldSet.readString("type"))
+				.salesman(Salesman.builder()
 						.identifier(fieldSet.readString("identifier"))
-
 						.salary(new BigDecimal(fieldSet.readString("salary").replace(",", "")))
-
 						.name(fieldSet.readString("name")).build())
 				.build();
 	}

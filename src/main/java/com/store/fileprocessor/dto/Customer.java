@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class Customer {
-	private String type;
 	private String identifier;
 	private String name;
 	private String businessArea;

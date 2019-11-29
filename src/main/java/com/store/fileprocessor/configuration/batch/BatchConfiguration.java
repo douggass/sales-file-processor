@@ -48,6 +48,9 @@ public class BatchConfiguration {
 				.fieldSetMapper(beanWrapperFieldSetMapper).build();
 	}
 
+	/**
+	 * Method with read file settings
+	 */
 	public LineMapper<FileData> lineMapper() {
 
 		HashMap<String, DelimitedLineTokenizer> tokenizers = new HashMap<>();
@@ -66,7 +69,13 @@ public class BatchConfiguration {
 
 		return patternMatchingCompositeLineMapper;
 	}
-
+	
+	/**
+	 * Method to dynamically tokenize file layout
+	 * @param mapNames - definition of the fields that are between the delimiters
+	 * @return delimited line tokenizer 
+	 * @see {@link DelimitedLineTokenizer}
+	 */
 	private DelimitedLineTokenizer buildDelimitedLineTokenizer(final String[] mapNames) {
 		DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
 		lineTokenizer.setDelimiter(DELIMITER);
@@ -75,18 +84,28 @@ public class BatchConfiguration {
 		return lineTokenizer;
 	}
 
+	/**
+	 * Method with processor file settings
+	 */
 	@Bean
 	@JobScope
 	public FileDataProcessor processor() {
 		return new FileDataProcessor();
 	}
 
+	/**
+	 * Method with writer file settings
+	 */
 	@Bean
 	@JobScope
 	public ItemWriter<FileData> writer() {
 		return new FileDataWriter();
 	}
 
+	/**
+	 * Method with delete file settings
+	 * @param fileName - full file path
+	 */
 	@Bean
 	@JobScope
 	public Tasklet delete(final @Value("#{jobParameters[fileName]}") String fileName) {
@@ -95,6 +114,9 @@ public class BatchConfiguration {
 		return delete;
 	}
 
+	/**
+	 * Method that will create a job with your steps
+	 */
 	@Bean
 	public Job importFileDataJob(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory,
 			ItemReader<FileData> reader, ItemProcessor<FileData, FileData> processor, ItemWriter<FileData> writer,

@@ -13,6 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TracePerformanceAspect {
 
+	/**
+	 * Method that will demonstrate the runtime of batch processing
+	 * @param joinPoint
+	 * @throws Throwable
+	 */
 	@Around("execution(* com.store.fileprocessor.configuration.batch..*.*(..)))")
 	public Object logTracePerformanceAspect(ProceedingJoinPoint joinPoint) throws Throwable {
 
