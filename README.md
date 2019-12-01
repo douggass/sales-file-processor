@@ -1,3 +1,5 @@
+[![BCH compliance](https://bettercodehub.com/edge/badge/douggass/sales-file-processor?branch=master)](https://bettercodehub.com/)
+
 # Service to process file
 
 This project contains a sales file processor.
