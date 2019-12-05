@@ -22,7 +22,7 @@ import com.store.fileprocessor.dto.Salesman;
 class FileOutDataBusinessTest {
 
 	@InjectMocks
-	private FileOutDataBusiness fileOutDataBusiness;
+	private FileOutDataBusinessImpl fileOutDataBusiness;
 
 	private static final String BUSINESS_AREA = "rural";
 	private static final String IDENTIFIER = "92385361000111";
