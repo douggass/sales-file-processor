@@ -27,15 +27,13 @@ public class FileDataWriter implements ItemWriter<FileData>, Closeable {
 
 	private FileOutDataBusiness fileDataBusiness = new FileOutDataBusiness();
 
-	private FileUtil fileUtil = new FileUtil();
-
 	private final PrintWriter writer;
 
 	@SuppressWarnings("resource")
 	public FileDataWriter() {
 		OutputStream out;
 		try {
-			String outPath = fileUtil.getSystemPathOut().concat(UUID.randomUUID().toString().concat(".txt"));
+			String outPath = FileUtil.getSystemPathOut().concat(UUID.randomUUID().toString().concat(".txt"));
 			out = new FileOutputStream(outPath);
 		} catch (FileNotFoundException e) {
 			log.error("Error: {}", e);
