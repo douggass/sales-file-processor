@@ -30,9 +30,6 @@ public class ProcessorSchedule {
 	@Autowired
 	private Job job;
 
-	@Autowired
-	private FileUtil fileUtil;
-
 	private boolean running = false;
 
 	/**
@@ -46,7 +43,7 @@ public class ProcessorSchedule {
 	public void run() throws IOException {
 		if (!running) {
 			running = true;
-			Set<String> listFiles = fileUtil.listFiles(fileUtil.getSystemPathIn());
+			Set<String> listFiles = FileUtil.listFiles(FileUtil.getSystemPathIn());
 
 			log.info("list files: {}", listFiles);
 
@@ -54,7 +51,7 @@ public class ProcessorSchedule {
 				listFiles.forEach(item -> {
 					final JobParameters jobParameter = new JobParametersBuilder()
 							.addLong("time", System.currentTimeMillis())
-							.addString("fileName", fileUtil.getSystemPathIn().concat(item)).toJobParameters();
+							.addString("fileName", FileUtil.getSystemPathIn().concat(item)).toJobParameters();
 					try {
 						JobExecution execution = jobLauncher.run(job, jobParameter);
 						log.info("Exit status: {} , steps: {}", execution.getStatus(), execution.getStepExecutions());
